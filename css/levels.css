@@ -1,0 +1,112 @@
+/* LEVELS PAGES CSS */
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+        background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+        color: #fff;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+    }
+
+    h1 {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        text-align: center;
+        color: #00d9ff;
+    }
+
+    label, input, button {
+        font-size: 1.1rem;
+        margin: 0.5rem;
+    }
+
+    input[type="text"] {
+        padding: 10px;
+        width: 100%;
+        max-width: 400px;
+        border-radius: 8px;
+        border: none;
+        outline: none;
+        background-color: #1d1f26;
+        color: #fff;
+        border-color: #00d9ff;
+    }
+
+    .input-box {
+        background-color: #1d1f26;
+        color: #fff;
+        padding: 10px;
+        margin: 8px 0;
+        width: 250px;
+        border-radius: 8px;
+        border: none; /* 🔄 removed white border */
+        font-size: 16px;
+        box-shadow: none; /* optional for flat look */
+    }      
+
+    button {
+        padding: 10px 20px;
+        background-color: #00d9ff;
+        color: #000;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: 0.3s;
+        margin-top: 1rem;
+    }
+
+    button:hover {
+        background-color: #00d9ff;
+    }
+
+    .equation-box {
+        background-color: #1d1f26;
+        border-left: 5px solid #00d9ff;
+        padding: 20px;
+        margin-top: 2rem;
+        width: 100%;
+        max-width: 700px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 255, 204, 0.2);
+    }
+
+    .equation-box h2 {
+        margin-bottom: 1rem;
+        color: #00d9ff;
+    }
+
+    .step {
+        padding: 10px;
+        line-height: 1.8;
+        border-bottom: 1px solid #333;
+    }
+
+    .step:last-child {
+        border-bottom: none;
+    }
+
+    .back-link {
+        margin-top: 2rem;
+        text-decoration: none;
+        color: #00d9ff;
+        border: 1px solid #00d9ff;
+        padding: 8px 15px;
+        border-radius: 5px;
+        transition: 0.3s;
+    }
+
+    .back-link:hover {
+        background-color: #00d9ff;
+        color: #000;
+    }
+

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smart Equation Solver</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <h1>🧠 Smart Equation Solver</h1>
+    <p>Select the type of equation you want to solve and let us handle the math!</p>
+
+    <div class="panel-container">
+        <div class="panel" onclick="goToLevel('level1')">
+          <h3>Level 1: Arithmetic</h3>
+          <p>Simple Arithmetic<br>(e.g. 3 + 2 = ?)</p>
+        </div>
+      
+        <div class="panel" onclick="goToLevel('level2')">
+          <h3>Level 2: Linear</h3>
+          <p>Linear Equations<br>(e.g. 2x + 5 = 9)</p>
+        </div>
+      
+        <div class="panel" onclick="goToLevel('level3')">
+          <h3>Level 3: Multi-variable</h3>
+          <p>Equations with x, y<br>(e.g. x + y = 5)</p>
+        </div>
+      
+        <div class="panel" onclick="goToLevel('level4')">
+          <h3>Level 4: Quadratic</h3>
+          <p>Second-degree equations<br>(e.g. x² - 4x + 4 = 0)</p>
+        </div>
+      
+        <div class="panel" onclick="goToLevel('level5')">
+          <h3>Level 5: Body mass Index</h3>
+          <p>Simple & Compound Interest</p>
+        </div>
+      
+        <div class="panel" onclick="goToLevel('level6')">
+          <h3>Level 6: Polynomial</h3>
+          <p>Higher degree polynomial equations</p>
+        </div>
+      
+        <div class="panel" onclick="goToLevel('level7')">
+          <h3>Level 7: Financial Math</h3>
+          <p>EMI, Profit & Loss, etc.</p>
+        </div>
+      
+        <div class="panel" onclick="goToLevel('level8')">
+          <h3>Level 8: Custom Solver</h3>
+          <p>Enter any custom algebraic equation</p>
+        </div>
+      </div>
+      
+
+      <script src="js/script.js"></script>
+
+
+</body>
+</html>

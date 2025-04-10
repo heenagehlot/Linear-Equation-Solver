@@ -1,0 +1,55 @@
+<!-- levels/level6.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Level 6: Polynomial Equation</title>
+  <link rel="stylesheet" href="../css/levels.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.11.0/math.js"></script>
+</head>
+<body>
+
+  <h1>Level 6: Polynomial Equation</h1>
+
+  <input type="text" id="poly" placeholder="Enter polynomial like x^3 - 6 = 0" />
+
+  <button onclick="solve()">Solve</button>
+
+  <div id="resultBox" class="equation-box" style="display: none;">
+    <h2>Solution:</h2>
+    <div id="result"></div>
+    <h2>Steps:</h2>
+    <div id="steps"></div>
+  </div>
+
+  <a href="../index.html" class="back-link">← Back to Home</a>
+
+  <script>
+    function solve() {
+      const eqInput = document.getElementById("poly").value;
+      const resultDiv = document.getElementById("result");
+      const stepsDiv = document.getElementById("steps");
+      const box = document.getElementById("resultBox");
+
+      try {
+        const transformed = eqInput.replace("=", "-(") + ")";
+        const simplified = math.simplify(transformed).toString();
+
+        resultDiv.innerText = `Simplified Form: ${simplified}`;
+        stepsDiv.innerHTML = `
+          <div class="step">1. Original: ${eqInput}</div>
+          <div class="step">2. Transformed to single side: ${transformed}</div>
+          <div class="step">3. Simplified: ${simplified}</div>
+          <div class="step">Note: You can factorize or solve this further based on the degree.</div>
+        `;
+
+        box.style.display = "block";
+      } catch (error) {
+        resultDiv.innerText = "Error: Invalid equation!";
+        stepsDiv.innerText = "";
+        box.style.display = "block";
+      }
+    }
+  </script>
+</body>
+</html>

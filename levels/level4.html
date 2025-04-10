@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Level 4: Quadratic Solver</title>
+  <link rel="stylesheet" href="../css/levels.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.11.0/math.min.js"></script>
+</head>
+<body>
+
+  <h1>Level 4: Quadratic Solver</h1>
+
+  <input type="text" id="eq" placeholder="Enter quadratic like x^2 - 4x + 4 = 0" />
+  <button onclick="solveQuadratic()">Solve</button>
+
+  <div id="result" class="equation-box" style="display: none;">
+    <h2>Solution:</h2>
+    <div id="solutionOutput"></div>
+  </div>
+
+  <a href="../index.html" class="back-link">← Back to Home</a>
+
+  <script>
+    function solveQuadratic() {
+      const input = document.getElementById("eq").value.trim();
+      const output = document.getElementById("solutionOutput");
+      const resultBox = document.getElementById("result");
+  
+      try {
+        const equation = input.replace(/\s+/g, ''); // remove spaces
+        const [lhs, rhs] = equation.split('=');
+  
+        if (!rhs || rhs !== '0') {
+          throw "❌ Equation must be in the format: ax^2 + bx + c = 0";
+        }
+  
+        // Match general quadratic format like: ax^2+bx+c
+        const regex = /^([+-]?\d*)x\^2([+-]?\d*)x([+-]?\d+)$/;
+        const match = lhs.match(regex);
+  
+        if (!match) {
+          throw "❌ Invalid format. Try like: x^2 - 5x + 6 = 0";
+        }
+  
+        // Extract coefficients
+        let a = match[1] === '' || match[1] === '+' ? 1 : match[1] === '-' ? -1 : parseFloat(match[1]);
+        let b = match[2] === '' || match[2] === '+' ? 1 : match[2] === '-' ? -1 : parseFloat(match[2]);
+        let c = parseFloat(match[3]);
+  
+        const steps = [];
+        steps.push(`Equation: <code>${input}</code>`);
+        steps.push(`Coefficients: a = ${a}, b = ${b}, c = ${c}`);
+  
+        const discriminant = b * b - 4 * a * c;
+        steps.push(`Discriminant = b² - 4ac = ${discriminant}`);
+  
+        if (discriminant > 0) {
+          const root1 = (-b + Math.sqrt(discriminant)) / (2 * a);
+          const root2 = (-b - Math.sqrt(discriminant)) / (2 * a);
+          steps.push(`✅ Two real and distinct roots:`);
+          steps.push(`x₁ = ${root1.toFixed(3)}, x₂ = ${root2.toFixed(3)}`);
+        } else if (discriminant === 0) {
+          const root = -b / (2 * a);
+          steps.push(`✅ One real and repeated root:`);
+          steps.push(`x = ${root.toFixed(3)}`);
+        } else {
+          const realPart = (-b / (2 * a)).toFixed(3);
+          const imagPart = (Math.sqrt(-discriminant) / (2 * a)).toFixed(3);
+          steps.push(`✅ Two complex roots:`);
+          steps.push(`x₁ = ${realPart} + ${imagPart}i`);
+          steps.push(`x₂ = ${realPart} - ${imagPart}i`);
+        }
+  
+        output.innerHTML = steps.map(s => `<div class="step">${s}</div>`).join('');
+        resultBox.style.display = 'block';
+  
+      } catch (error) {
+        output.innerHTML = `<p style="color: red;">${error}</p>`;
+        resultBox.style.display = 'block';
+      }
+    }
+  </script>
+  
+</body>
+</html>

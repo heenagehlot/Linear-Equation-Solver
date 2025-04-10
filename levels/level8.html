@@ -1,0 +1,54 @@
+<!-- levels/level8.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Level 8: Custom Solver</title>
+  <link rel="stylesheet" href="../css/levels.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.11.0/math.js"></script>
+</head>
+<body>
+
+  <h1>Level 8: Custom Equation Solver</h1>
+
+  <input type="text" id="customEq" placeholder="Enter any math expression or equation" />
+
+  <button onclick="customSolve()">Solve</button>
+
+  <div id="resultBox" class="equation-box" style="display: none;">
+    <h2>Solution:</h2>
+    <div id="result"></div>
+    <h2>Steps:</h2>
+    <div id="steps"></div>
+  </div>
+
+  <a href="../index.html" class="back-link">← Back to Home</a>
+
+  <script>
+    function customSolve() {
+      const input = document.getElementById("customEq").value;
+      const resultDiv = document.getElementById("result");
+      const stepsDiv = document.getElementById("steps");
+      const box = document.getElementById("resultBox");
+
+      try {
+        const evaluated = math.evaluate(input);
+        resultDiv.innerText = `Result: ${evaluated}`;
+
+        stepsDiv.innerHTML = `
+          <div class="step">1. Input received: ${input}</div>
+          <div class="step">2. Evaluated using math.js</div>
+          <div class="step">3. Final Result: ${evaluated}</div>
+          <div class="step">Note: This solver accepts arithmetic, algebra, trigonometry, and more!</div>
+        `;
+
+        box.style.display = "block";
+      } catch (error) {
+        resultDiv.innerText = "Error: Invalid expression!";
+        stepsDiv.innerText = "";
+        box.style.display = "block";
+      }
+    }
+  </script>
+</body>
+</html>

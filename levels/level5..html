@@ -1,0 +1,62 @@
+<!-- levels/level5.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Level 5: BMI Calculator</title>
+  <link rel="stylesheet" href="../css/levels.css" />
+</head>
+<body>
+
+  <h1>Level 5: BMI Calculator</h1>
+
+  <label>Weight (kg): <input id="weight" type="number" step="0.1" /></label><br />
+  <label>Height (cm): <input id="height" type="number" step="0.1" /></label><br />
+  
+  <button onclick="calculateBMI()">Calculate BMI</button>
+
+  <div id="resultBox" class="equation-box" style="display: none;">
+    <h2>Result:</h2>
+    <div id="result"></div>
+    <div class="step" id="steps"></div>
+  </div>
+
+  <a href="../index.html" class="back-link">← Back to Home</a>
+
+  <script>
+    function calculateBMI() {
+      const weight = parseFloat(document.getElementById('weight').value);
+      const heightCm = parseFloat(document.getElementById('height').value);
+      const height = heightCm / 100; // Convert to meters
+
+      const resultBox = document.getElementById('resultBox');
+      const result = document.getElementById('result');
+      const steps = document.getElementById('steps');
+
+      if (!weight || !height || height <= 0) {
+        result.innerText = "❌ Please enter valid height and weight.";
+        steps.innerText = "";
+        resultBox.style.display = "block";
+        return;
+      }
+
+      const bmi = weight / (height * height);
+      let category = "";
+
+      if (bmi < 18.5) category = "Underweight";
+      else if (bmi < 24.9) category = "Normal weight";
+      else if (bmi < 29.9) category = "Overweight";
+      else category = "Obese";
+
+      result.innerText = `Your BMI is ${bmi.toFixed(2)} (${category})`;
+      steps.innerHTML = `
+        <div class="step">1️⃣ Convert height from cm to meters → ${heightCm}cm = ${height.toFixed(2)}m</div>
+        <div class="step">2️⃣ Apply formula: BMI = weight / (height × height)</div>
+        <div class="step">3️⃣ Calculation: ${weight} / (${height.toFixed(2)} × ${height.toFixed(2)})</div>
+        <div class="step">4️⃣ Final BMI = ${bmi.toFixed(2)}</div>
+      `;
+      resultBox.style.display = "block";
+    }
+  </script>
+</body>
+</html>

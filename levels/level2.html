@@ -1,0 +1,74 @@
+<!-- levels/level2.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Level 2: Linear Equations</title>
+  <link rel="stylesheet" href="../css/levels.css">
+</head>
+<body>
+  <h1>Level 2: Linear Equation</h1>
+
+  <input type="text" id="eq" placeholder="Enter equation like 2x + 3 = 7" />
+
+  <!-- ✅ Step-by-Step Box -->
+  <div class="equation-box" id="steps-box" style="display: none;">
+    <h2>Step-by-Step Solution</h2>
+    <div class="step" id="step-original"></div>
+    <div class="step" id="step-isolated"></div>
+    <div class="step" id="step-final"></div>
+  </div>
+
+  <button onclick="solve()">Solve</button>
+
+  <a href="../index.html" class="back-link">← Back to Home</a>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.11.0/math.js"></script>
+  <script>
+    function solve() {
+      const equation = document.getElementById("eq").value;
+      const stepsBox = document.getElementById("steps-box");
+      const stepOriginal = document.getElementById("step-original");
+      const stepIsolated = document.getElementById("step-isolated");
+      const stepFinal = document.getElementById("step-final");
+  
+      try {
+        const [lhs, rhs] = equation.split('=').map(side => side.trim());
+        const variable = math.parse(lhs).filter(node => node.isSymbolNode)[0].name;
+  
+        // Use algebra solve
+        const lhsSimplified = math.simplify(lhs);
+        const rhsSimplified = math.simplify(rhs);
+        const expr = math.simplify(`${lhs} - (${rhs})`);
+        const coeff = math.derivative(expr, variable).evaluate();
+        const constant = expr.evaluate({ [variable]: 0 });
+        const solution = -constant / coeff;
+  
+        // Construct clearer steps
+        stepOriginal.innerHTML = `<strong>Step 1: Original Equation</strong><br>${lhs} = ${rhs}`;
+        stepIsolated.innerHTML = `<strong>Step 2: Isolate ${variable}</strong><br>Subtract constants from both sides<br><em>${lhs} - ${constant} = ${rhs} - ${constant}</em><br>Simplifies to: ${coeff}${variable} = ${rhsSimplified - constant}`;
+        stepFinal.innerHTML = `<strong>Step 3: Solve for ${variable}</strong><br>Divide both sides by ${coeff}<br><em>${coeff}${variable}/${coeff} = ${rhsSimplified - constant}/${coeff}</em><br><strong>Solution:</strong> ${variable} = ${solution}`;
+  
+        stepsBox.style.display = "block";
+      } catch (error) {
+        stepOriginal.innerHTML = `<strong>Error:</strong> Invalid or unsupported equation`;
+        stepIsolated.innerHTML = "";
+        stepFinal.innerHTML = "";
+        stepsBox.style.display = "block";
+      }
+    }
+  
+    // Custom algebra function
+    math.algebra = {
+      solve: function (eq, variable) {
+        const [lhs, rhs] = eq.split('=').map(e => math.simplify(e.trim()));
+        const expr = math.simplify(`${lhs} - (${rhs})`);
+        const coeff = math.derivative(expr, variable).evaluate();
+        const constant = expr.evaluate({ [variable]: 0 });
+        return -constant / coeff;
+      }
+    };
+  </script>
+  
+</body>
+</html>

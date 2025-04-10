@@ -1,0 +1,54 @@
+<!-- levels/level1.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Level 1: Arithmetic</title>
+  <link rel="stylesheet" href="../css/levels.css">
+</head>
+<body>
+  <h1>Level 1: Simple Arithmetic</h1>
+
+  <input type="text" id="input1" placeholder="Enter expression like 3 + 4 * 2" />
+
+  <!-- ✅ Corrected: This appears just below input field -->
+  <div class="equation-box" id="steps-box" style="display:none;">
+    <h2>Step-by-Step Solution</h2>
+    <div class="step" id="step-original"></div>
+    <div class="step" id="step-eval"></div>
+    <div class="step" id="step-final"></div>
+  </div>
+
+  <button onclick="solve()">Solve</button>
+
+  <a href="../index.html" class="back-link">← Back to Home</a>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.11.0/math.js"></script>
+  <script>
+    function solve() {
+      const input = document.getElementById("input1").value;
+      const stepsBox = document.getElementById("steps-box");
+      const original = document.getElementById("step-original");
+      const evalStep = document.getElementById("step-eval");
+      const final = document.getElementById("step-final");
+
+      try {
+        const node = math.parse(input);
+        const simplified = node.toString();
+        const result = math.evaluate(input);
+
+        original.innerHTML = "<strong>Original:</strong> " + input;
+        evalStep.innerHTML = "<strong>Parsed Expression:</strong> " + simplified;
+        final.innerHTML = "<strong>Final Answer:</strong> " + result;
+
+        stepsBox.style.display = "block";
+      } catch {
+        original.innerHTML = "<strong>Error:</strong> Invalid Input";
+        evalStep.innerHTML = "";
+        final.innerHTML = "";
+        stepsBox.style.display = "block";
+      }
+    }
+  </script>
+</body>
+</html>

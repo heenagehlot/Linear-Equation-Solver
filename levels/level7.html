@@ -1,0 +1,51 @@
+<!-- levels/level7.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Level 7: EMI Calculator</title>
+  <link rel="stylesheet" href="../css/levels.css">
+</head>
+<body>
+  <h1>Level 7: EMI Calculator</h1>
+
+    <input class="input-box" type="number" id="loan" placeholder="Enter Loan Amount (₹)" />
+    <input class="input-box" type="number" id="rate" placeholder="Annual Interest Rate (%)" />
+    <input class="input-box" type="number" id="months" placeholder="Loan Duration (months)" />
+
+  <button onclick="calculateEMI()">Solve</button>
+
+  <div id="result" class="equation-box" style="display: none;">
+    <h2>Result:</h2>
+    <div id="output"></div>
+  </div>
+
+  <a href="../index.html" class="back-link">← Back to Home</a>
+
+  <script>
+    function calculateEMI() {
+      let P = parseFloat(document.getElementById("loan").value);
+      let R = parseFloat(document.getElementById("rate").value) / 12 / 100;
+      let N = parseFloat(document.getElementById("months").value);
+
+      if (isNaN(P) || isNaN(R) || isNaN(N) || P <= 0 || R <= 0 || N <= 0) {
+        document.getElementById("output").innerText = "Please enter valid positive values!";
+        document.getElementById("result").style.display = "block";
+        return;
+      }
+
+      let emi = (P * R * Math.pow(1 + R, N)) / (Math.pow(1 + R, N) - 1);
+      let total = emi * N;
+      let interest = total - P;
+
+      document.getElementById("output").innerHTML =
+        `<p><strong>Monthly EMI:</strong> ₹${emi.toFixed(2)}</p>
+         <p><strong>Total Payment:</strong> ₹${total.toFixed(2)}</p>
+         <p><strong>Total Interest:</strong> ₹${interest.toFixed(2)}</p>`;
+      
+      document.getElementById("result").style.display = "block";
+    }
+  </script>
+</body>
+</html>
